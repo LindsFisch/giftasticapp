@@ -1,12 +1,12 @@
 $(document).ready(function() {
-var tvShow = ["The Office", "Parks and Rec", "Baskets", "Archer", "Golden Girls", "The Good Place", "Master of None", "Broad City", "Rick and Morty", "Difficult People"];
+var tvShow = ["The Office", "Parks and Rec", "Arrested Development", "Archer", "Golden Girls", "The Good Place", "Master of None", "Broad City", "Rick and Morty", "Difficult People", "Baskets", "Grace and Frankie", "Reno 911", "Louie"];
 
 //populate buttons on DOM from strings in tvShow array
 function renderButtons() {
 	for (var i = 0; i < tvShow.length; i++) {
 		var showbutton = $("<button>");
 		showbutton.html(tvShow[i]);
-		showbutton.addClass("tv-button");
+		showbutton.addClass("tv-button btn btn-secondary");
 		showbutton.attr("data-name", tvShow[i]);
 		$("#buttondiv").append(showbutton);
 	}
@@ -24,15 +24,58 @@ $("#add-show").on("click", function() {
 
 //click event for movie button
 $("#buttondiv").on("click", ".tv-button", function() {
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-name") + "&limit=10&api_key=dc6zaTOxFJmzC";
+	//empty div for new results
+	$("#gifdiv").empty();
 
+	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-name") + "&limit=10&api_key=dc6zaTOxFJmzC";
+	//ajax call to giphy
 	$.ajax({
 		url:queryURL,
 		method: "GET"
 	}).done(function(response){
-		console.log(response);
+
+		var results = response.data;
+
+		//loop through the results
+		for (var i = 0; i < results.length; i++) {
+			var tvShowDiv = $("<div>");
+			var p = $("<p>");
+			p.html("Rating: " + results[i].rating.toUpperCase());
+
+			var tvShowImg = $("<img>");
+			//assign still and animate state and url to each giphy
+			tvShowImg.attr("src", results[i].images.fixed_height_still.url);
+			tvShowImg.attr("data-still", results[i].images.fixed_height_still.url);
+			tvShowImg.attr("data-animate", results[i].images.fixed_height.url);
+			tvShowImg.attr("data-state", "still");
+			tvShowImg.addClass("imgclick");
+			tvShowDiv.append(tvShowImg);
+			tvShowDiv.append(p);
+			tvShowDiv.addClass("gif-div");
+			$("#gifdiv").prepend(tvShowDiv);
+		}
 	})
 })
 
+//change state of giphy and animate when clicked
+$("#gifdiv").on("click", ".imgclick", function() {
+
+	var state = $(this).attr("data-state");
+
+	if(state === "still") {
+		var animates = $(this).attr("data-animate");
+		//change giphy link to the one to animate
+		$(this).attr("src", animates);
+		//change state of giphy to animate
+        $(this).attr("data-state", "animate");
+    } else {
+        var still = $(this).attr("data-still");
+        //change giphy link to the one that is still
+        $(this).attr("src", still);
+        //change state of giphy to animate
+        $(this).attr("data-state", "still");
+	}
+
+})
 renderButtons();
 })
