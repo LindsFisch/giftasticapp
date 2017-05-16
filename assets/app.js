@@ -27,7 +27,7 @@ $("#buttondiv").on("click", ".tv-button", function() {
 	//empty div for new results
 	$("#gifdiv").empty();
 
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-name") + "&limit=10&api_key=dc6zaTOxFJmzC";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-name") + "&limit=10&api_key=dc6zaTOxFJmzC";
 	//ajax call to giphy
 	$.ajax({
 		url:queryURL,
