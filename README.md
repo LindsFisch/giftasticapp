@@ -2,21 +2,7 @@
 
 ### Overview
 
-Used the GIPHY API to make a dynamic web page that populates with gifs of TV shows. Call the GIPHY API and use JavaScript and jQuery to change the HTML of your site.
-
-### Specifications
-1. App should take the TV Shows array and create buttons in HTML.
-
-2. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page. 
-
-3. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
-
-4. Under every gif, display its rating (PG, G, so on). 
-
-   * This data is provided by the GIPHY API.
-   * Only once you get images displaying with button presses should you move on to the next step.
-
-5. Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
+Used the GIPHY API to make a dynamic web page that populates with gifs of TV shows. The app calls the GIPHY API and uses JavaScript and jQuery to change the HTML of the site.  When gif displays, it will be a static image until user clicks on it to 'play' the gif.  When you clicks on it again, it will put it back to a static image.   User can also add new gifs to the page by inputing data in the text field. 
 
 ### Technologies Utilized
 HTML5 Bootstrap CSS CSS3 JavaScript JQuery GIPHY API
